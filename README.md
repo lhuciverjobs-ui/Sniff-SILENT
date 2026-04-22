@@ -2,154 +2,219 @@
   <img src="./assets/readme-banner.png" alt="Sniff-SILENT banner" width="100%" />
 </p>
 
-# Sniff-SILENT
+<p align="center">
+  <img src="https://img.shields.io/badge/Chrome_Extension-Manifest_V3-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" />
+  <img src="https://img.shields.io/badge/Mode-Incognito_Only-1a1a2e?style=for-the-badge&logo=googlechrome&logoColor=white" />
+  <img src="https://img.shields.io/badge/Dibuat_Dengan-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Lisensi-MIT-00ff88?style=for-the-badge" />
+</p>
 
-Sniff-SILENT is a Chrome extension for monitoring API traffic directly from the browser with a persistent side-panel workflow, session-based capture, smart filtering, token extraction, and incognito-focused usage for cleaner results.
+<p align="center">
+  <b>Senyap. Tepat Sasaran. Tak Terlihat.</b><br/>
+  Ekstensi Chrome untuk mencegat traffic API secara real-time — dirancang untuk sesi incognito, pemburu token, dan siapa saja yang perlu tahu apa yang sebenarnya dikirim browser.
+</p>
 
-## What It Does
+---
 
-- Captures browser traffic from `fetch` and `XMLHttpRequest`
-- Extracts useful auth artifacts such as Bearer tokens, JWTs, API keys, and cookies
-- Opens in a persistent side panel instead of a popup that closes on click
-- Supports quick start for the active tab
-- Adds session-based capture so logs stay organized
-- Filters by domain, path, method, and keyword
-- Highlights important traffic such as `AUTH`, `TOKEN`, `ERROR`, `GRAPHQL`, and `JSON`
-- Collapses duplicate requests and shows repeat counters
-- Exports captured data as `.env`, JSON, and cURL
-- Runs in incognito-only mode for a more isolated capture environment
+## 🌑 Apa Itu Sniff-SILENT?
 
-## Why Incognito
+**Sniff-SILENT** menyusup ke `fetch` dan `XMLHttpRequest` di level halaman untuk menangkap seluruh traffic keluar dari browser — tanpa proxy, tanpa install sertifikat, tanpa harus bolak-balik ke tab DevTools.
 
-This extension is intentionally optimized for incognito usage.
+Berjalan sebagai **side panel** yang persisten, mengekstrak artefak autentikasi secara otomatis, dan dibatasi hanya untuk jendela incognito agar hasil capture bersih dari kebisingan sesi normal.
 
-Benefits:
+> Dibuat untuk peneliti, developer, dan security engineer yang butuh visibilitas cepat dan fokus terhadap apa yang dilakukan sebuah web app — tanpa gangguan yang tidak perlu.
 
-- fewer unrelated cookies and sessions
-- less noise from normal browsing activity
-- cleaner login and onboarding flows
-- easier isolation per target site
+---
 
-The extension is configured to work only from incognito windows after `Allow in Incognito` is enabled in Chrome.
+## ⚡ Kemampuan Utama
 
-## Main Features
+| Fitur | Keterangan |
+|---|---|
+| 🔌 **Pencegatan Traffic** | Hook `fetch` + `XMLHttpRequest` saat injeksi halaman |
+| 🔑 **Ekstraksi Token** | Otomatis menarik Bearer token, JWT, API key, dan cookie |
+| 🖥️ **Side Panel Persisten** | Tetap terbuka saat kamu berinteraksi dengan target |
+| 🚀 **Quick Start** | Satu klik: ikat tab, set filter, beri nama sesi, mulai capture |
+| 📦 **Capture Sesi** | Kelompokkan request ke dalam sesi bernama per flow atau target |
+| 🏷️ **Penandaan Cerdas** | Auto-label `AUTH` `TOKEN` `ERROR` `GRAPHQL` `JSON` |
+| 🔁 **Deduplikasi** | Gabungkan request berulang dengan penghitung tampilan |
+| 📤 **Ekspor** | Output sebagai `.env`, `.json`, atau `cURL` |
+| 🌑 **Incognito-First** | Hanya menerima traffic dari jendela incognito secara desain |
 
-### 1. Side Panel Monitoring
+---
 
-The extension opens as a side panel so it stays visible while you interact with the target site.
+## 🕵️ Kenapa Harus Incognito?
 
-### 2. Quick Start Flow
+Kebanyakan ekstensi menerima semua traffic begitu saja. Sniff-SILENT secara sengaja membatasi capture hanya ke jendela incognito karena alasan mendasar:
 
-Use `Quick Start This Tab` to:
+```
+jendela normal  →  cookie dari 12 tab lain, sesi tersimpan,
+                   state sebelum login, ad tracker, service worker...
 
-- bind capture to the active tab
-- auto-fill the current site into the filter
-- generate a session name automatically
-- start capture immediately
-
-### 3. Session Capture
-
-Each capture run can be grouped into a named session, making it easier to separate different login attempts, flows, or targets.
-
-### 4. Smart Highlighting
-
-Requests are tagged automatically when they look important:
-
-- `AUTH`
-- `TOKEN`
-- `ERROR`
-- `GRAPHQL`
-- `JSON`
-
-### 5. Export Tools
-
-Captured logs can be exported as:
-
-- `.env`
-- `.json`
-- `cURL`
-
-## Installation
-
-1. Open `chrome://extensions`
-2. Enable `Developer mode`
-3. Click `Load unpacked`
-4. Select this project folder
-5. Open the extension details page
-6. Enable `Allow in Incognito`
-
-## Recommended Usage
-
-1. Open a new incognito window with `Ctrl + Shift + N`
-2. Open the target website inside that incognito window
-3. Click the extension icon to open the side panel
-4. Press `Quick Start This Tab`
-5. Perform the actions you want to observe
-6. Watch captured requests, tokens, and highlights in real time
-7. Export the result if needed
-
-## Capture Controls
-
-The side panel includes:
-
-- session name input
-- start new session
-- stop session
-- domain filter
-- path filter
-- method filter
-- keyword filter
-- active-tab-only toggle
-
-## Project Structure
-
-```text
-.
-|- assets/
-|  `- readme-banner.png
-|- icons/
-|  |- icon16.png
-|  |- icon32.png
-|  |- icon48.png
-|  |- icon128.png
-|  `- icon-master.png
-|- background.js
-|- content.js
-|- inject.js
-|- manifest.json
-|- popup.html
-|- popup.js
-`- README.md
+incognito       →  bersih. hanya flow yang kamu uji.
 ```
 
-## Core Files
+**Manfaat nyata:**
+- Tidak ada kontaminasi silang dari sesi harian kamu
+- Alur login dan onboarding lebih mudah dicapture dalam kondisi bersih
+- Isolasi per-target yang lebih mudah dikendalikan
+- Lebih sedikit noise = sinyal lebih cepat ditemukan
 
-- `manifest.json`
-  Defines permissions, side panel entry, content scripts, icons, and incognito behavior.
-- `inject.js`
-  Hooks into page-level `fetch` and `XMLHttpRequest`.
-- `content.js`
-  Bridges page events into the extension runtime.
-- `background.js`
-  Applies capture rules, stores requests and tokens, handles dedupe, and manages incognito-only behavior.
-- `popup.html` and `popup.js`
-  Render and control the side-panel interface.
+> ⚠️ Chrome mengharuskan kamu mengaktifkan `Izinkan di Mode Samaran` secara manual dari halaman detail ekstensi. Ini disengaja — agar izin tersebut tetap eksplisit dan disadari pengguna.
 
-## Current Behavior Summary
+---
 
-- capture is off by default
-- only incognito traffic is accepted
-- side panel is preferred over popup mode
-- active-tab capture is supported
-- duplicate requests are merged
-- tokens and requests are stored locally in extension storage
+## 🗂️ Struktur Proyek
 
-## Notes
+```
+Sniff-SILENT/
+├── assets/
+│   └── readme-banner.png
+├── icons/
+│   ├── icon16.png
+│   ├── icon32.png
+│   ├── icon48.png
+│   ├── icon128.png
+│   └── icon-master.png
+├── background.js        ← Logika capture, storage, dedup, incognito gate
+├── content.js           ← Jembatan: event halaman → runtime ekstensi
+├── inject.js            ← Hook fetch/XHR di level halaman
+├── manifest.json        ← Izin, side panel, content scripts
+├── popup.html           ← UI side panel
+├── popup.js             ← Kontroler side panel
+└── README.md
+```
 
-- This project is intended for controlled browser-side traffic observation
-- Chrome still requires `Allow in Incognito` to be enabled manually by the user
-- If you use multiple tabs, `active tab only` is the safest default for keeping results focused
+<details>
+<summary><b>📄 Tanggung Jawab Setiap File Inti</b></summary>
 
-## Repository
+<br/>
 
-GitHub: `lhuciverjobs-ui/Sniff-SILENT`
+**`inject.js`**
+Berjalan di konteks halaman. Membungkus `fetch` dan `XMLHttpRequest` native untuk mencegat semua request keluar sebelum meninggalkan browser. Inilah yang menangkap traffic mentah.
+
+**`content.js`**
+Bertindak sebagai jembatan pesan. Menerima event dari `inject.js` (yang hidup di dunia halaman) dan meneruskannya ke runtime ekstensi agar bisa diproses oleh `background.js`.
+
+**`background.js`**
+Mesin utama. Menerapkan aturan capture, filter, dan logika sesi. Mengelola deduplikasi, menyimpan request dan token yang diekstrak ke storage ekstensi, serta menjalankan incognito gate.
+
+**`popup.html` + `popup.js`**
+Antarmuka side panel. Menampilkan log capture, mengontrol sesi, menangani ekspor, dan mengelola semua input filter.
+
+**`manifest.json`**
+Mendeklarasikan izin ekstensi (`declarativeNetRequest`, `storage`, `tabs`, `sidePanel`), mendaftarkan content script, dan mengatur perilaku incognito.
+
+</details>
+
+---
+
+## 🛠️ Cara Instalasi
+
+```
+1.  Buka        →  chrome://extensions
+2.  Aktifkan    →  Mode Developer
+3.  Klik        →  Load unpacked
+4.  Pilih       →  folder proyek ini
+5.  Buka        →  halaman detail ekstensi
+6.  Aktifkan    →  Izinkan di Mode Samaran
+```
+
+> ⚠️ Langkah ke-6 wajib dilakukan. Tanpanya, ekstensi akan termuat tapi tidak akan menerima traffic apapun.
+
+---
+
+## 🚀 Alur Penggunaan yang Disarankan
+
+```
+Ctrl + Shift + N       →  buka jendela incognito baru
+Buka situs target      →  navigasi ke halaman yang ingin diuji
+Klik ikon ekstensi     →  buka side panel
+Tekan                  →  Quick Start This Tab
+Lakukan aksi           →  login, trigger flow, hit endpoint
+Pantau                 →  request, token, dan tag muncul real-time
+Ekspor                 →  .env / .json / cURL saat selesai
+```
+
+---
+
+## 🎛️ Kontrol Capture
+
+Side panel menyediakan kontrol berikut:
+
+```
+[ Nama Sesi          ]  label untuk sesi capture ini
+[ Mulai Sesi         ]  mulai sesi bernama baru
+[ Hentikan Sesi      ]  akhiri capture dan bekukan log
+[ Filter Domain      ]  batasi ke host tertentu
+[ Filter Path        ]  cocokkan segmen path URL
+[ Filter Method      ]  GET / POST / PUT / DELETE / dll.
+[ Filter Kata Kunci  ]  cocokkan teks bebas terhadap URL atau body
+[ Tab Aktif Saja     ]  toggle: batasi capture ke tab saat ini
+```
+
+---
+
+## 📤 Format Ekspor
+
+<details>
+<summary><b>.env — format variabel lingkungan</b></summary>
+
+```env
+BEARER_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6...
+API_KEY=sk-abc123...
+```
+
+</details>
+
+<details>
+<summary><b>.json — log terstruktur lengkap</b></summary>
+
+```json
+{
+  "session": "target-login-2025",
+  "captured": [...],
+  "tokens": [...]
+}
+```
+
+</details>
+
+<details>
+<summary><b>cURL — request yang bisa direproduksi</b></summary>
+
+```bash
+curl -X POST https://api.target.com/auth/login \
+  -H "Authorization: Bearer eyJ..." \
+  -H "Content-Type: application/json" \
+  -d '{"email":"...","password":"..."}'
+```
+
+</details>
+
+---
+
+## 🔖 Perilaku Saat Ini
+
+| Perilaku | Status |
+|---|---|
+| Capture saat load | ❌ Nonaktif secara default |
+| Incognito gate | ✅ Aktif — traffic non-incognito ditolak |
+| Mode panel | ✅ Side panel (bukan popup) |
+| Scope tab aktif | ✅ Didukung via toggle |
+| Penggabungan duplikat | ✅ Aktif — penghitung ditampilkan pada request berulang |
+| Penyimpanan | ✅ Local extension storage (tanpa request keluar) |
+
+---
+
+## ⚠️ Disclaimer
+
+Sniff-SILENT ditujukan untuk **observasi traffic browser yang terkontrol dan berizin** — debugging saat development, reverse engineering API pada layanan yang kamu miliki atau sudah ada izin pengujiannya, dan riset keamanan dalam ruang lingkup yang jelas.
+
+Jangan gunakan tool ini terhadap sistem yang tidak kamu miliki atau tidak memiliki izin eksplisit untuk diinspeksi.
+
+---
+
+<p align="center">
+  <sub>Dibuat untuk tab incognito. Untuk yang penasaran. Untuk yang fokus.</sub><br/>
+  <sub><code>lhuciverjobs-ui/Sniff-SILENT</code></sub>
+</p>
